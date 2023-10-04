@@ -6,19 +6,26 @@ namespace ex40
     {
         static void Main(string[] args)
         {
-            Renderer renderer = new Renderer();
             Player player = new Player(50, 16);
+            Renderer renderer = new Renderer(player);
 
-            renderer.DrawPlayer(player.X, player.Y);
+            renderer.DrawPlayer(player);
         }
     }
 
     class Renderer
     {
-        public void DrawPlayer(int x, int y, char character = '@')
+        private Player _player;
+
+        public Renderer(Player player) 
+        {
+            _player = player;
+        }
+
+        public void DrawPlayer(Player player, char character = '@')
         {
             Console.CursorVisible = false;
-            Console.SetCursorPosition(x, y);
+            Console.SetCursorPosition(player.X, player.Y);
             Console.WriteLine(character);
             Console.ReadKey(true);
         }
@@ -26,13 +33,13 @@ namespace ex40
 
     class Player
     {
-        public int X { get; private set; }
-        public int Y { get; private set; }
-
         public Player(int x, int y)
         {
             X = x;
             Y = y;
         }
+
+        public int X { get; private set; }
+        public int Y { get; private set; }
     }
 }
